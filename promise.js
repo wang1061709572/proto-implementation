@@ -152,7 +152,7 @@ class Promise {
 
 function check(promise1, promise2, resolve, reject) {
     if (promise1 === promise2) {
-        reject('Chaining cycle')
+        reject('Chaining cycle detected for Promise')
     } else {
         if (promise2 instanceof Promise) {
             promise2.then(resolve, reject);
@@ -163,4 +163,3 @@ function check(promise1, promise2, resolve, reject) {
 }
 
 export default Promise
-
