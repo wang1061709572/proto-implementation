@@ -11,11 +11,13 @@ class Promise {
     }
     static reject(reason) {
         if (reason instanceof Promise) return reason;
-        if (reason && reason.then && typeof reason.then === 'function') {
-            reason.then(resolve, reject);
-        } else {
-            reject(reason);
-        }
+        return new Promise((resolve, reject) => {
+            if (reason && reason.then && typeof reason.then === 'function') {
+                reason.then(resolve, reject);
+            } else {
+                reject(reason);
+            }
+        });
     }
     static all(promises) {
         if (!promises || typeof promises[Symbol.iterator] !== 'function') {
@@ -84,7 +86,7 @@ class Promise {
             })
         }
     }
-    resolve(reason) {
+    reject(reason) {
         if (this.state === 'pending') {
             this.state = 'rejected';
             this.value = reason;
@@ -162,4 +164,22 @@ function check(promise1, promise2, resolve, reject) {
     }
 }
 
-export default Promise
+let a = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('asdf');
+    }, 2000);
+})
+
+let b = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('bnmk');
+    }, 2000);
+})
+
+Promise.all([a, b]).then(res =>
+    console.log(res));
+
+a.then((res) => console.log(res));
+b.then((res) => console.log(res));
+
+// export default Promise

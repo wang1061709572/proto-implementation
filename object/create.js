@@ -15,4 +15,3 @@ let b = Object.create(a);
 let c = Object._create(a);
 console.log(b, b.name);
 console.log(c, c.name);
-
