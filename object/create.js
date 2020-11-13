@@ -11,7 +11,14 @@ let a = {
     name: 'John'
 };
 
-let b = Object.create(a);
-let c = Object._create(a);
-console.log(b, b.name);
-console.log(c, c.name);
+let b = Object.create(a, {
+    age: {
+        value: 12
+    }
+});
+console.log(a.age);
+console.log(b.age, b);
+console.log(Object.getOwnPropertyDescriptor(b));
+// let c = Object._create(a);
+// console.log(b, b.name);
+// console.log(c, c.name);
